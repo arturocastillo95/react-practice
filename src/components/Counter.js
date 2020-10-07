@@ -1,25 +1,21 @@
-import React, {Component} from 'react'
+import React, {useContext, useState} from 'react';
+import {ThemeSelector} from '../App';
 
-export default class Counter extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            count: props.initialCount
-        }
-    }
+const Counter = ({ initialCount }) => {
+    const [counter, setCounter] = useState(initialCount);
+    const theme = useContext(ThemeSelector)
     
-    render() {
-        return (
-            <div>
-            <button onClick={() => this.changeCount(-1)}>-</button>
-            <span>{this.props.initialCount}</span>
-            <button>+</button>
-          </div>
-        )
+    const changeCounter = (number) => {
+        setCounter(counter + number)
     }
 
-    changeCount(amount) {
-        this.setState()
-    }
+    return (
+        <div>
+            <button style={theme} onClick={() => changeCounter(-1)}>-</button>
+                <span>{counter}</span>
+            <button style={theme} onClick={() => changeCounter(1)}>+</button>
+        </div>
+    )
 }
+
+export default Counter;
